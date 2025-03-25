@@ -9,8 +9,22 @@ class Pokemon(models.Model):
     image = models.ImageField(null=True)
     description = models.CharField(max_length=1000, blank=True)
 
+    evolved_from = models.ForeignKey(
+        'self', 
+        on_delete=models.CASCADE, 
+        null=True, blank=True, 
+        related_name='evolves_to'
+    )
+    evolved_to = models.ForeignKey(
+        'self', 
+        on_delete=models.CASCADE, 
+        null=True, blank=True, 
+        related_name='evolves_from'
+    )
+
     def __str__(self):
-        return '{}'.format(self.title_ru)
+        return self.title_ru
+
     
 
 class PokemonEntity(models.Model):

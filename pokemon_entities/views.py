@@ -80,7 +80,17 @@ def show_pokemon(request, pokemon_id):
                 "lon": int,
             }
             ],
-        'next_evolution': '',
+        'next_evolution': {
+            'pokemon_id': pokemon.pokemon.evolved_to.id,
+            'title_ru': pokemon.pokemon.evolved_to.title_ru,
+            'img_url': request.build_absolute_uri(pokemon.pokemon.evolved_to.image.url) if pokemon.pokemon.evolved_to.image else DEFAULT_IMAGE_URL
+        } if pokemon.pokemon.evolved_to else None,
+
+        'previous_evolution': {
+            'pokemon_id': pokemon.pokemon.evolved_from.id,
+            'title_ru': pokemon.pokemon.evolved_from.title_ru,
+            'img_url': request.build_absolute_uri(pokemon.pokemon.evolved_from.image.url) if pokemon.pokemon.evolved_from.image else DEFAULT_IMAGE_URL
+        } if pokemon.pokemon.evolved_from else None,
                     }
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
     add_pokemon(
