@@ -46,7 +46,7 @@ def show_all_pokemons(request):
         pokemons_on_page.append({
             'pokemon_id': pokemon.id,
             'img_url': request.build_absolute_uri(pokemon.image.url) if pokemon.image else DEFAULT_IMAGE_URL,
-            'title_ru': pokemon.title,
+            'title_ru': pokemon.title_ru,
         })
 
     return render(request, 'mainpage.html', context={
@@ -63,9 +63,9 @@ def show_pokemon(request, pokemon_id):
     image_path = pokemon.pokemon.image
     image_uri = request.build_absolute_uri(image_path.url) if image_path else DEFAULT_IMAGE_URL
     pokemon_data = {
-        'title_ru': pokemon.pokemon.title,
-        'title_en': '',
-        'title_jp': '',
+        'title_ru': pokemon.pokemon.title_ru,
+        'title_en': pokemon.pokemon.title_en,
+        'title_jp': pokemon.pokemon.title_jp,
         'description': pokemon.pokemon.description,
         'img_url': image_uri,
         'entities': [
