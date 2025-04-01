@@ -13,13 +13,7 @@ class Pokemon(models.Model):
         'self', 
         on_delete=models.CASCADE, 
         null=True, blank=True, 
-        related_name='evolves_to'
-    )
-    evolved_to = models.ForeignKey(
-        'self', 
-        on_delete=models.CASCADE, 
-        null=True, blank=True, 
-        related_name='evolves_from'
+        related_name='next_evolution'
     )
 
     def __str__(self):
