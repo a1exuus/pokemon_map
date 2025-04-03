@@ -6,14 +6,14 @@ class Pokemon(models.Model):
     title_ru = models.CharField(max_length=200, verbose_name='Название(рус.)')
     title_en = models.CharField(max_length=200, blank=True, verbose_name='Название(анг.)')
     title_jp = models.CharField(max_length=200, blank=True, verbose_name='Название(яп.)')
-    image = models.ImageField(null=True, verbose_name='Изображение')
+    image = models.ImageField(null=True, verbose_name='Изображение', upload_to='pokemon_image')
     description = models.TextField(blank=True, verbose_name='Описание')
 
     evolved_from = models.ForeignKey(
         'self', 
         on_delete=models.CASCADE, 
         null=True, blank=True, 
-        related_name='next_evolution',
+        related_name='next_evolutions',
         verbose_name='Из кого эволюционировал'
     )
 
