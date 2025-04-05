@@ -2,7 +2,7 @@ import folium
 import json
 
 from django.http import HttpResponseNotFound, HttpRequest
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from pokemon_entities.models import Pokemon, PokemonEntity
 from django.utils.timezone import localtime, datetime
 from pytz import timezone
@@ -56,10 +56,7 @@ def show_all_pokemons(request):
 
 
 def show_pokemon(request, pokemon_id):
-    try:
-        pokemon_entity = PokemonEntity.objects.get(id=pokemon_id)
-    except:
-        return HttpResponseNotFound('<h1>Такой покемон не найден</h1>')
+    pokemon_entity = get_object_or_404(PokemonEntity, id=pokemon_id)
     pokemon = pokemon_entity.pokemon
     next_evolution = pokemon.next_evolution.first()
     image_path = pokemon.image
